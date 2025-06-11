@@ -1,0 +1,10 @@
+Entity( 속성값 종류
+1. position = (x, y, z) : 객체의 좌표를 설정
+2. rotaion = 값값: 회전의 각도
+3. scale = 값: 크기
+4. model = 'cube', 'shpere', 'plane', 'circle' :모델형태
+5. color = color.red, blue, green... : 색깔
+6. texture = 'white_cube', 'brick',  : 텍스쳐
+7. collider = 'mesh', 'box' : 충돌판정
+8. visible = T/F :보이게 안보이게
+)
