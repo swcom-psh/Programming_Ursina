@@ -1,5 +1,6 @@
-우르시나 라이브러리를 사용하기 위한 기본적인 방법
 
+
+우르시나 라이브러리를 사용하기 위한 기본적인 방법
 
 #1. 우르시나 라이브러리를 프로그램에 추가한다.
  - 코드: from ursina import *
@@ -25,41 +26,28 @@ chat gpt 성능 좋은 것 안다. 하지만 여기에 의존해서 만들어낸
 #1-1. Entity() 안에는 많은 '속성'들이 있다. 모든걸 외울필요는 없고, 필요할 때 여기에 다시 돌아와서 살펴보도록 하자.
 아래는 기본적인 속성들에 대한 정보다.
 (
-    'name', 'enabled', 'eternal', 'visible', 'parent',
+    'name', 'enabled', 'visible',
     'origin', 'position', 'rotation', 'scale',
-    'model', 'color', 'texture', 'texture_scale', 'texture_offset',
-    'render_queue', 'always_on_top', 'collider', 'collision', 'scripts'
+    'model', 'color', 'texture',
+    'collider', 'collision', 'scripts'
 )
 
 | 속성명               | 설명                                            
 | ----------------- | -------------------------------------------      
 | name            | 엔티티 이름                                         
-| enabled         | 활성화 여부 (True면 작동)                            
-| eternal         | 씬 전환 등에도 제거되지 않음                          
-| position        | 위치 (Vec3)                                        
-| rotation        | 회전 (Vec3)                                         
-| scale           | 크기 (Vec3 또는 float)                              
-| model           | 모델 이름(str) 또는 NodePath 객체                     
-| origin          | 모델 기준점(Vec3), 회전축 등에 영향                    
-| shader          | 쉐이더                                              
+| enabled         | 활성화 여부 (True면 작동)                                                    
+| position        | 좌표 (x축, y축, z축)
+| rotation        | 회전 각도(x축, y축, z축)
+| scale           | 크기 (x축, y축, z축)
+| model           | 모델 이름('str')
+| origin          | 모델 기준점, 회전축 등에 영향
+| shader          | 쉐이더
 | texture         | 텍스처 이름(str) 또는 Texture 객체                    
-| texture_scale   | 텍스처 반복 횟수 (Vec2)                              
-| texture_offset  | 텍스처 위치 보정(Vec2)                               
 | color           | 색상 (기본 'color.white') 색 참조 사이트(컨트롤 누른채 클릭하면 링크이동) >> https://encycolorpedia.kr/html // 예제: color = '7fffd4'               
-| collider        | 충돌체 유형 ('box', 'sphere', 'capsule', 'mesh' 등) 
-| collision       | 충돌 활성화 여부                                    
-| parent          | 상위 엔티티                                        
-| visible         | 보이는지 여부                                      
-| render_queue    | 렌더 우선순위                                      
-| always_on_top   | 항상 맨 위에 렌더링                                 
-| scripts         | 스크립트 리스트                                     
-| material        | 여러 시각 요소 일괄 설정용 dict                      
-| tileset_size    | 타일셋 텍스처의 가로, 세로 타일 수                  
-| tile_coordinate | 사용할 타일 좌표 (Vec2 또는 튜플)                   
-| alpha           | 투명도 (0~~1 또는 0~~255)                          
-| unlit           | 조명 무시 여부                                      
-| billboard       | 카메라를 향하게 렌더링                                  
-| wireframe       | 와이어프레임 모드 표시                                 
+| collider        | 충돌체 유형 ('box', 'sphere', 'capsule', 'mesh') 
+| collision       | 충돌 활성화 여부 (True면 충돌 활성화)              
+| alpha           | 투명도 (0~~1 또는 0~~255)                           
+| billboard       | 카메라를 향하게 렌더링                                    
 | flipped_faces   | 모델 앞뒤 반전 여부                                  
 | reflection_map  | 반사맵 (sphere/cube map 생성 시 사용)              
 

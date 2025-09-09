@@ -90,7 +90,7 @@ class MonsterX(Entity): #클래스 MonsterX를 생성합니다.
           super().__init__( #Entity 클래스의 속성을 그대로 가져와 enemy를 초기화합니다.
                enemy = Entity(
                     model = 'assets/enemy.obj',
-                    texture = 'assets/EnemyTexture.png',
+                    texture = 'assets\EnemyTexture.png',
                     scale = 0.5,
                     position = (x * 5, 1, z * 5),
                     collider = 'box',
@@ -175,11 +175,11 @@ for i in range(len(MAP)):
 
                wall = Entity(                
                     model = 'cube',
-                    color = color.rgba(165,82,42),
+                    color = '#d1a432',
                     position = (i * 5, 1.5, j * 5),
                     scale = (5,5,5),
                     collider = 'box',
-                    texture = 'brick' # assets 폴더안 텍스처 사진을 불러옵니다.
+                    texture = 'brick'
                     )
                walls.append(wall) #wall 객체의 정보를 walls 배열 안에 저장합니다.
           coin = Coin(i,j) # 길목에 모두 코인 배치
