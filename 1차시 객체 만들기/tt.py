@@ -1,41 +1,65 @@
 from ursina import *
+import random, math
+
 app = Ursina()
 
 EditorCamera()
 window.color = color.black
 
-# --- 중앙 태양 ---
-sun = Entity(model='sphere', color=color.yellow, scale=2)
+# 은하 파라미터
+num_stars = 500       # 은하 별 개수
+galaxy_radius = 100
+arms = 4
+arm_spread = 0.3
 
-# --- 지구 공전: 피벗(parent)을 중심에 두고 회전시키기 ---
-earth_pivot = Entity()                         # (0,0,0) 중심에서 회전
-earth = Entity(model='sphere', color=color.azure, scale=0.7,
-               parent=earth_pivot, position=(6, 0, 0))   # 반지름=6에 배치
+# 별 색상 팔레트 (청백, 황백, 적색 계열)
+star_colors = [
+    color.rgb(180, 200, 255),   # 푸른별
+    color.rgb(255, 255, 255),   # 흰별
+    color.rgb(255, 240, 200),   # 노란별
+    color.rgb(255, 200, 150),   # 주황별
+    color.rgb(255, 180, 180)    # 붉은별
+]
 
-# --- 달 공전도 동일: 피벗을 지구 위치에 두고 그 주위를 회전 ---
-moon_pivot = Entity(parent=earth)              # 지구 중심을 기준으로 회전
-moon = Entity(model='sphere', color=color.gray, scale=0.25,
-              parent=moon_pivot, position=(1.5, 0, 0))   # 지구 반경 1.5
+stars = []
 
-# --- 화성도 추가해보기 ---
-mars_pivot = Entity()
-mars = Entity(model='sphere', color=color.red, scale=0.5,
-              parent=mars_pivot, position=(9, 0, 0))
+for i in range(num_stars):
+    # 반경과 각도
+    r = random.uniform(2, galaxy_radius)
+    angle = (r * 0.25) + (i % arms) * (2*math.pi/arms)
+    angle += random.uniform(-arm_spread, arm_spread)
+    
+    x = math.cos(angle) * r
+    z = math.sin(angle) * r
+    y = random.uniform(-3, 3)
+    
+    star = Entity(
+        model='sphere',
+        scale=random.uniform(0.05, 0.2),              # 크기 다양화
+        color=random.choice(star_colors),             # 색상 랜덤
+        position=(x,y,z)
+    )
+    stars.append(star)
 
-# 공전 각속도 (도/초)
-omega_earth = 30     # 지구 공전 속도
-omega_moon  = 180    # 달 공전 속도(지구 주위)
-omega_mars  = 24
+# 은하 중심 (초대질량 블랙홀 영역)
+core = Entity(model='sphere', color=color.yellow, scale=4, position=(0,0,0))
 
-def update():  
-    # time.dt(델타타임) 기반으로 피벗을 회전시키면 자식이 원 궤도로 공전
-    earth_pivot.rotation_y += omega_earth * time.dt
-    moon_pivot.rotation_y  += omega_moon  * time.dt
-    mars_pivot.rotation_y  += omega_mars  * time.dt
+# 은하 회전
+rotation_speed = 5
 
-# UI 라벨
-Text("Sun",  position=(-.47,.43), scale=1, color=color.yellow)
-Text("Earth", parent=camera.ui, position=(-.47,.38), scale=1, color=color.azure)
-Text("Mars",  parent=camera.ui, position=(-.47,.33), scale=1, color=color.red)
+def update():
+    for s in stars:
+        s.parent = core
+    core.rotation_y += rotation_speed * time.dt
+
+# --- 배경 별 무작위 배치 ---
+for _ in range(300):
+    bx = random.uniform(-300, 300)
+    by = random.uniform(-300, 300)
+    bz = random.uniform(-300, 300)
+    Entity(model='sphere',
+           scale=random.uniform(0.05, 0.15),
+           color=color.rgb(200,200,255),
+           position=(bx,by,bz))
 
 app.run()

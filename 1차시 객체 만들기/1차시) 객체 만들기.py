@@ -5,6 +5,10 @@ app = Ursina()
 
 EditorCamera()
 
+def input(key):
+    if key == 'escape':
+        application.quit()
+
 class object(Entity):
     def __init__(self, model, x, z):
         super().__init__(
